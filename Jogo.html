@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Jogo de adivinhação</title>
+    </head>
+    
+    <body>
+        
+        <section>
+        <p1>
+
+            Jogo de adivinhação de números.<BR><BR>
+        
+            Digite uma das opções abaixo para iniciar.<BR><BR>
+            * PVP<BR>
+            * PVE<BR>
+            * NÍVEL 1<BR>
+            * NÍVEL 2<BR>
+            * NÍVEL 3<BR>
+            * NÍVEL 4<BR>
+            * SOMA DE PONTOS<BR>
+            * MELHOR DE TRES<BR>
+            * MORTE SUBITA<BR><BR>
+        
+        </p1>
+        <input type="text" id="inpEntrada" placeholder="Modalidade do jogo"><BR><BR>
+        <button class="side-button" onClick="Modalidade()">Participar</button><BR>
+        <div id="saida"></div>
+    </section>
+
+    <style>
+
+        p1
+        {
+            color: rgba(162, 156, 199, 0.658);
+        }
+
+        body
+        {
+           background-color: rgba(151, 129, 68, 0.801);
+        }
+        section
+        {
+            background-image:url('vxs.jpg');
+            background-color: rgb(129, 210, 216);
+            border-radius: 10px;
+            padding: 29px;
+            width: 350px;
+            margin: auto;
+            box-shadow: 5px 12px 20px rgb(255, 255, 255);
+            color: rgba(162, 156, 199, 0.658);
+        }
+        .side-button
+        {
+            color: rgb(157, 255, 0);
+        }
+        .clicked-button {
+            color: rgb(9, 211, 201);
+        }
+        footer
+        {
+            color: rgb(253, 253, 253);
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+
+
+<script>
+    
+    document.getElementById('inpEntrada').focus()
+    
+    document.getElementById('inpEntrada').addEventListener('keyup', (ev) => {
+        const input = ev.target;
+        input.value = input.value.toUpperCase();
+    });
+    
+function Modalidade()
+    {
+        var Game = document.getElementById('inpEntrada').value
+
+        switch (Game)
+        {
+            case 'PVP': PvP()
+                break;
+
+            case 'PVE': PvE()
+                break;
+            
+            case 'NIVEL 1': Nivel1()
+                break;
+
+            case 'NIVEL 2': Nivel2()
+                break;
+
+            case 'NIVEL 3': Nivel3()
+                break;
+
+            case 'NIVEL 4': Nivel4()
+                break;
+
+            case 'SOMA DE PONTOS': SomaDePontos()
+                break;
+
+            case 'MELHOR DE TRES': MelhorDeTres()
+                break;
+
+            case 'MORTE SUBITA': PvEMorteSubita()
+                break;
+        }
+    }
+
+function PvP()
+    {
+        
+        player1 = prompt('Digite seu nome: ')
+        p1 = player1
+        player2 = prompt('Digite seu nome: ')
+        p2 = player2
+
+        var cont = 0
+
+        var final = Number(prompt('Qual a quantidade de rodadas: '))
+
+        var numeromagico1 = Number(prompt('Player 1 qual número mágico para Player 2: '))
+        var numeromagico2 = Number(prompt('Player 2 qual número mágico para Player 1: '))
+        
+        while (cont < final)
+        {
+            cont++
+
+            p1 = Number(prompt(player1 + ' ' + cont + 'º rodada qual número: '))
+            p2 = Number(prompt(player2 + ' ' + cont + 'º rodada qual número: '))
+            
+            if (p1 > numeromagico2 && p2 > numeromagico1)
+            {
+                alert(player1 + ' número mágico é menor.')
+                alert(player2 + ' número mágico é menor.')
+            }else
+            {
+                if(p1 < numeromagico1 && p2 < numeromagico2)
+                {
+                    alert(player1 + ' número mágico é maior.')
+                    alert(player2 + ' número mágico é maior.')
+                }else
+                {
+                    if (p1 < numeromagico1 && p2 > numeromagico2)
+                    {
+                        alert(player1 + ' número mágico é maior.')
+                        alert(player2 + ' número mágico é menor.')
+                    }else
+                    {
+                        if (p1 > numeromagico1 && p2 < numeromagico1)
+                        {
+                            alert(player1 + ' número mágico é menor.')
+                            alert(player2 + ' número mágico é maior.')
+                        }else
+                        {
+                            if (p1 == numeromagico1 && p2 == numeromagico2)
+                            {
+                                document.getElementById("saida").innerHTML += ('Parabém ambos acertaram.<BR>O número mágico 1 é : ' + numeromagico1 + 'e número mágico 2 é : ' + numeromagico2 + '<BR>Tentativas gastas: ' + cont)
+                                break;
+                            }else
+                            {
+                                if (p1 == numeromagico1 && p2 != numeromagico2)
+                                {
+                                    document.getElementById("saida").innerHTML += (player1 + ' Parabéns você venceu.<BR>O número mágico 1 é : ' + numeromagico1 + 'e número mágico 2 é : ' + numeromagico2 + '<BR>Tentativas gastas: ' + cont + '<BR>' + player2 + ' tente novamente na próxima.')
+                                    break;
+                                }else
+                                {
+                                    if (p1 != numeromagico1 && p2 == numeromagico2)
+                                    {
+                                        document.getElementById("saida").innerHTML += (player2 + ' Parabéns você venceu.<BR>O número mágico 1 é : ' + numeromagico1 + 'e número mágico 2 é : ' + numeromagico2 + '<BR>Tentativas gastas: ' + cont + '<BR>' + player1 + ' tente novamente na próxima.')
+                                        break;
+                                    }else
+                                    {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (cont == final)
+            {
+                document.getElementById("saida").innerHTML += ('Ambos perderam. PATOS<BR>O número mágico 1 era : ' + numeromagico1 + 'e número mágico 2 era : ' + numeromagico2 + ' <BR>Vocês gastaram ' + cont + ' tentativas seus tansos.')
+                break;
+            }                                        
+        }
+    }
+
+function PvE()
+{
+    var numeromagico = Math.floor(Math.random() * 10 + 1 );
+
+      player1 = prompt('Digite seu nome: ')
+
+    var final = Number(prompt('Quantas rodadas: '))
+
+    for(i = 1 ;i <= final ; i++)
+    {
+        p1 = Number(prompt(player1 + ' ' + i + 'º Qual número: '))
+        var maquina = Math.floor(Math.random() * 10 +1 );
+
+        if (p1 > numeromagico && maquina > numeromagico)
+        {
+            alert(player1 + ' número mágico é menor.')
+            alert('AI apostou em : ' + maquina + ' ,número mágico é menor.')
+        }else
+        {
+            if(p1 < numeromagico && maquina < numeromagico)
+            {
+                alert(player1 + ' número mágico é maior.')
+                alert('AI apostou em : ' + maquina + ' ,número mágico é maior.')
+            }else
+            {
+                if (p1 < numeromagico && maquina > numeromagico)
+                {
+                    alert(player1 + ' número mágico é maior.')
+                    alert('AI apostou em : ' + maquina + ' ,número mágico é menor.')
+                }else
+                {
+                    if (p1 > numeromagico && maquina < numeromagico)
+                    {
+                        alert(player1 + ' número mágico é menor.')
+                        alert('AI apostou em : ' + maquina + ' ,número mágico é maior.')
+                    }else
+                    {
+                        if (p1 == numeromagico && maquina == numeromagico)
+                        {
+                            document.getElementById("saida").innerHTML += ('Parabém ambos acertaram.<BR>O número mágico era: ' + numeromagico + '<BR>Tentativas gastas: ' + i)
+                            break;
+                        }else
+                        {
+                            if (p1 == numeromagico && maquina != numeromagico)
+                            {
+                                document.getElementById("saida").innerHTML +=(player1 + ' Parabéns você venceu.<BR>O número mágico era: ' + numeromagico + '<BR>Tentativas gastas: ' + i + '<BR>Ai tente novamente na próxima.')
+                                break;
+                            }else
+                            {
+                                if (p1 != numeromagico && maquina == numeromagico)
+                                {
+                                    document.getElementById("saida").innerHTML +=('AI Parabéns você venceu.<BR>O número mágico era: ' + numeromagico + '<BR>Tentativas gastas: ' + i + '<BR>' + player1 + ' tente novamente na próxima.')
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (i == final)
+        {
+            document.getElementById("saida").innerHTML += ('Ambos perderam. PATOS<BR>O número mágico era: ' + numeromagico + '<BR>Vocês gastaram ' + i + ' tentativas seu tanso.')
+        }
+    }
+}
+
+function Nivel1()
+{
+    var numeromagico = Math.floor(Math.random() * 10 + 1 );
+
+      player1 = prompt('Digite seu nome: ')
+
+    for(i = 1 ;i <= 5 ; i++)
+    {
+        p1 = Number(prompt(player1 + ' ' + i + 'º rodada, qual número: '))
+
+        if (p1 > numeromagico)
+        {
+            alert(player1 + ' número mágico é menor.')
+        }else
+        {
+            if(p1 < numeromagico)
+            {
+                alert(player1 + ' número mágico é maior.')
+            }else
+            {
+                if (p1 == numeromagico)
+                {
+                    document.getElementById("saida").innerHTML += ('Parabéns você acertou.<BR>O número mágico era: ' + numeromagico + '<BR>Tentativas gastas: ' + i)
+                    break;
+                }
+            }
+        }
+        if (i == 5)
+        {
+            document.getElementById("saida").innerHTML += ('Você perdeu seu PATO<BR>O número mágico era: ' + numeromagico + '<BR>Você gastou 5 tentativas seu tanso.')
+        }
+    }
+}
+
+function Nivel2()
+{
+    var numeromagico = Math.floor(Math.random() * 20 + 1 );
+
+      player1 = prompt('Digite seu nome: ')
+
+    for(i = 1 ;i <= 5 ; i++)
+    {
+        p1 = Number(prompt(player1 + ' ' + i + 'º rodada, qual número: '))
+
+        if (p1 > numeromagico)
+        {
+            alert(player1 + ' número mágico é menor.')
+        }else
+        {
+            if(p1 < numeromagico)
+            {
+                alert(player1 + ' número mágico é maior.')
+            }else
+            {
+                if (p1 == numeromagico)
+                {
+                    document.getElementById("saida").innerHTML += ('Parabéns você acertou.<BR>O número mágico era: ' + numeromagico + '<BR>Tentativas gastas: ' + i)
+                    break;
+                }
+            }
+        }
+        if (i == 5)
+        {
+            document.getElementById("saida").innerHTML += ('Você perdeu seu PATO<BR>O número mágico era: ' + numeromagico + '<BR>Você gastou 5 tentativas seu tanso.')
+        }
+    }
+}
+
+function Nivel3()
+{
+    var numeromagico = Math.floor(Math.random() * 30 + 1 );
+
+      player1 = prompt('Digite seu nome: ')
+
+    for(i = 1 ;i <= 5 ; i++)
+    {
+        p1 = Number(prompt(player1 + ' ' + i + 'º rodada, qual número: '))
+
+        if (p1 > numeromagico)
+        {
+            alert(player1 + ' número mágico é menor.')
+        }else
+        {
+            if(p1 < numeromagico)
+            {
+                alert(player1 + ' número mágico é maior.')
+            }else
+            {
+                if (p1 == numeromagico)
+                {
+                    document.getElementById("saida").innerHTML += ('Parabéns você acertou.<BR>O número mágico era: ' + numeromagico + '<BR>Tentativas gastas: ' + i)
+                    break;
+                }
+            }
+        }
+        if (i == 5)
+        {
+            document.getElementById("saida").innerHTML += ('Você perdeu seu PATO<BR>O número mágico era: ' + numeromagico + '<BR>Você gastou 5 tentativas seu tanso.')
+        }
+    }
+}
+
+function Nivel4()
+{
+    var numeromagico = Math.floor(Math.random() * 50 + 1 );
+
+      player1 = prompt('Digite seu nome: ')
+
+    for(i = 1 ;i <= 5 ; i++)
+    {
+        p1 = Number(prompt(player1 + ' ' + i + 'º rodada, qual número: '))
+
+        if (p1 > numeromagico)
+        {
+            alert(player1 + ' número mágico é menor.')
+        }else
+        {
+            if(p1 < numeromagico)
+            {
+                alert(player1 + ' número mágico é maior.')
+            }else
+            {
+                if (p1 == numeromagico)
+                {
+                    document.getElementById("saida").innerHTML += ('Parabéns você acertou.<BR>O número mágico era: ' + numeromagico + '<BR>Tentativas gastas: ' + i)
+                    break;
+                }
+            }
+        }
+        if (i == 5)
+        {
+            document.getElementById("saida").innerHTML += ('Você perdeu seu PATO<BR>O número mágico era: ' + numeromagico + '<BR>Você gastou 5 tentativas seu tanso.')
+        }
+    }
+}
+
+function MelhorDeTres()
+{
+
+    player1 = prompt('Digite seu nome: ')
+        p1 = player1
+        player2 = prompt('Digite seu nome: ')
+        p2 = player2
+
+        var n1 = 0
+        var n2 = 0
+        
+        for(i = 0;i = 10;i++)
+        {console.log(n1 , n2)
+            if(n1 == 2) 
+            {
+                document.getElementById("saida").innerHTML+= `${player1} Ganhou`
+                break;
+            }
+            if (n2 == 2)
+            {
+                document.getElementById("saida").innerHTML+= `${player2} Ganhou`
+                break;
+            }
+            
+            var cont = 0
+
+            alert("escolha os numeros entre 0 e 20")
+            var numeromagico1 = Number(prompt('Player 1 qual número mágico para Player 2: '))
+            var numeromagico2 = Number(prompt('Player 2 qual número mágico para Player 1: '))
+            
+            while (cont <= 20)
+            {
+                cont++
+
+                p1 = Number(prompt(player1 + ' ' + cont + 'º rodada qual número: '))
+            p2 = Number(prompt(player2 + ' ' + cont + 'º rodada qual número: '))
+            
+            if (p1 > numeromagico2 && p2 > numeromagico1)
+            {
+                alert(player1 + ' número mágico é menor.')
+                alert(player2 + ' número mágico é menor.')
+            }else
+            {
+                if(p1 < numeromagico2 && p2 < numeromagico1)
+                {
+                    alert(player1 + ' número mágico é maior.')
+                    alert(player2 + ' número mágico é maior.')
+                }else
+                {
+                    if (p1 < numeromagico2 && p2 > numeromagico1)
+                    {
+                        alert(player1 + ' número mágico é maior.')
+                        alert(player2 + ' número mágico é menor.')
+                    }else
+                    {
+                        if (p1 > numeromagico2 && p2 < numeromagico1)
+                        {
+                            alert(player1 + ' número mágico é menor.')
+                            alert(player2 + ' número mágico é maior.')
+                        }else
+                        {
+                            if (p1 == numeromagico2 && p2 == numeromagico1)
+                            {   alert("revanche os dois acertaram")
+                                 break;
+                            }else
+                            {
+                                if (p1 == numeromagico2 && p2 != numeromagico1)
+                                {   n1 ++
+                                    alert('o player : ' + player1 + ' acertou')
+                                    break;
+                                }else
+                                {
+                                    if (p1 != numeromagico2 && p2 == numeromagico1)
+                                    {   n2 ++
+                                        alert('o player : ' + player2 + ' acertou')
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function SomaDePontos()
+{
+        player1 = prompt('Digite seu nome: ')
+        p1 = player1
+        player2 = prompt('Digite seu nome: ')
+        p2 = player2
+        player3 = prompt('Digite seu nome: ')
+        p3 = player3
+        player4 = prompt('Digite seu nome: ')
+        p4 = player4
+
+        var n1 = 0
+        var n2 = 0
+        var n3 = 0
+        var n4 = 0
+        
+        for(i = 0;i = 15;i++)
+        {console.log(n1 , n2, n3, n4)
+            if(n1 == 5) 
+            {
+                document.getElementById("saida").innerHTML+= `${player1} Ganhou <br>`
+                break;
+            }
+            if (n2 == 5)
+            {
+                document.getElementById("saida").innerHTML+= `${player2} Ganhou <br>`
+                break;
+            }
+            if(n3 == 5) 
+            {
+                document.getElementById("saida").innerHTML+= `${player3} Ganhou <br>`
+                break;
+            }
+            if (n4 == 5)
+            {
+                document.getElementById("saida").innerHTML+= `${player4} Ganhou <br>`
+                break;
+            }
+            var cont = 0
+            
+            var numeromagico = Math.floor(Math.random() * 20 + 1 );
+            
+            while (cont <= 5)
+            {
+                console.log(numeromagico)
+                cont++
+
+            p1 = Number(prompt(player1 + ' ' + cont + 'º rodada qual número: '))
+            p2 = Number(prompt(player2 + ' ' + cont + 'º rodada qual número: '))
+            p3 = Number(prompt(player3 + ' ' + cont + 'º rodada qual número: '))
+            p4 = Number(prompt(player4 + ' ' + cont + 'º rodada qual número: '))
+            
+            if (p1 > numeromagico && p2 > numeromagico && p3 > numeromagico && p4 > numeromagico)
+            {
+                alert('O número mágico é menor do que todas as tentativas.') 
+            }else
+            {
+                if(p1 < numeromagico && p2 < numeromagico && p3 < numeromagico && p4 < numeromagico)
+                {
+                    alert('O número mágico é maior do que todas as tentativas.') 
+                }else
+                {
+                    if (p1 < numeromagico && p2 > numeromagico && p3 > numeromagico && p4 > numeromagico)
+                    {
+                        alert(player2 + ',' + player3 + ',' + player4 + ' número mágico é menor.')
+                        alert(player1 + ' número mágico é maior.')
+    
+                    }else
+                    {
+                        if (p1 > numeromagico && p2 < numeromagico && p3 > numeromagico && p4 > numeromagico)
+                        {
+                            alert(player1 + player3 + player4 + ' número mágico é menor.')
+                            alert(player2 + ' número mágico é maior.')
+                        }else
+                        {
+                            if (p1 > numeromagico && p2 > numeromagico && p3 < numeromagico && p4 > numeromagico)
+                            {
+                                alert(player1 + ',' + player2 + ',' + player4 + ' número mágico é menor.')
+                                alert(player3 + ' número mágico é maior.')
+                            }else
+                            {
+                                if (p1 > numeromagico && p2 > numeromagico && p3 > numeromagico && p4 < numeromagico)
+                                {
+                                    alert(player1 + ',' + player2 + ',' + player3 + ' número mágico é menor.')
+                                    alert(player4 + ' número mágico é maior.')
+                                }else
+                                {
+                                    if (p1 > numeromagico && p2 < numeromagico && p3 < numeromagico && p4 < numeromagico)
+                                    {
+                                        alert(player2 + ',' + player3 + ',' + player4 + ' número mágico é maior.')
+                                        alert(player1 + ' número mágico é menor.')
+                    
+                                    }else
+                                    {
+                                        if (p1 < numeromagico && p2 > numeromagico && p3 < numeromagico && p4 < numeromagico)
+                                        {
+                                            alert(player1 + ',' + player3 + ',' + player4 + ' número mágico é maior.')
+                                            alert(player2 + ' número mágico é menor.')
+                                        }else
+                                        {
+                                            if (p1 < numeromagico && p2 < numeromagico && p3 > numeromagico && p4 < numeromagico)
+                                            {
+                                                alert(player1 + ',' + player2 + ',' + player4 + ' número mágico é maior.')
+                                                alert(player3 + ' número mágico é menor.')
+                                            }else
+                                            {
+                                                if (p1 < numeromagico && p2 < numeromagico && p3 < numeromagico && p4 > numeromagico)
+                                                {
+                                                    alert(player1 + ',' + player2 + ',' + player3 + ' número mágico é maior.')
+                                                    alert(player4 + ' número mágico é menor.')
+                                                }else
+                                                {
+                                                    if (p1 > numeromagico && p2 > numeromagico && p3 < numeromagico && p4 < numeromagico)
+                                                    {
+                                                        alert(player1 + ',' + player2 + ' número mágico é maior.')
+                                                        alert(player4 + ',' + player3 + ' número mágico é menor.')
+                                                    }else
+                                                    {
+                                                        if (p1 < numeromagico && p2 > numeromagico && p3 < numeromagico && p4 > numeromagico)
+                                                        {
+                                                            alert(player1 + ',' + player3 + ' número mágico é maior.')
+                                                            alert(player2 + ',' + player4 + ' número mágico é menor.')
+                                                        }else
+                                                        {
+                                                            if (p1 < numeromagico && p2 > numeromagico && p3 > numeromagico && p4 < numeromagico)
+                                                            {
+                                                                alert(player1 + ',' + player4 + ' número mágico é maior.')
+                                                                alert(player2 + ',' + player3 + ' número mágico é menor.')
+                                                            }else
+                                                            {
+                                                                if (p1 > numeromagico && p2 < numeromagico && p3 < numeromagico && p4 > numeromagico)
+                                                                {
+                                                                    alert(player2 + ',' +  player3 + ' número mágico é maior.')
+                                                                    alert(player1 + ',' +  player4 + ' número mágico é menor.')
+                                                                }else
+                                                                {
+                                                                    if (p1 > numeromagico && p2 < numeromagico && p3 > numeromagico && p4 < numeromagico)
+                                                                    {
+                                                                        alert(player2 + ',' +  player4 + ' número mágico é maior.')
+                                                                        alert(player1 + ',' +  player3 + ' número mágico é menor.')
+                                                                    }else
+                                                                    {
+                                                                        if (p1 > numeromagico && p2 > numeromagico && p3 < numeromagico && p4 < numeromagico)
+                                                                        {
+                                                                            alert(player3 + ',' +  player4 + ' número mágico é maior.')
+                                                                            alert(player1 + ',' +  player2 + ' número mágico é menor.')
+                                                                        }else
+                                                                        {
+                                                                            if (p1 == numeromagico && p2 != numeromagico && p3 != numeromagico && p4 != numeromagico)
+                                                                            {
+                                                                                n1 ++
+                                                                                alert(player1 + ' Acertou!!! .')
+                                                                                break;
+                                                                            }else
+                                                                            {
+                                                                                if (p1 != numeromagico && p2 == numeromagico && p3 != numeromagico && p4 != numeromagico)
+                                                                                    {
+                                                                                        n2 ++
+                                                                                        alert(player2 + ' Acertou!!! .')
+                                                                                        break;
+                                                                                    }else
+                                                                                    {
+                                                                                        if (p1 != numeromagico && p2 != numeromagico && p3 == numeromagico && p4 != numeromagico)
+                                                                                        {
+                                                                                            n3 ++
+                                                                                            alert(player3 + ' Acertou!!! .')
+                                                                                            break;
+                                                                                        }else
+                                                                                        {
+                                                                                            if (p1 != numeromagico && p2 != numeromagico && p3 != numeromagico && p4 == numeromagico)
+                                                                                            {
+                                                                                                n4 ++
+                                                                                                alert(player4 + ' Acertou!!! .')
+                                                                                                break;
+                                                                                            }else
+                                                                                            {
+                                                                                                if (p1 == numeromagico && p2 == numeromagico && p3 != numeromagico && p4 != numeromagico)
+                                                                                                {
+                                                                                                    
+                                                                                                    alert(player1 + ',' +  player2 + ' Acertou!!! ninguem pontua.')
+                                                                                                    break;
+                                                                                                }else
+                                                                                                {
+                                                                                                    if (p1 == numeromagico && p2 != numeromagico && p3 == numeromagico && p4 != numeromagico)
+                                                                                                    {
+                                                                                                        alert(player1 + ',' +  player3 + ' Acertou!!! ninguem pontua.')
+                                                                                                        break;
+                                                                                                    }else
+                                                                                                    {
+                                                                                                        if (p1 == numeromagico && p2 != numeromagico && p3 != numeromagico && p4 == numeromagico)
+                                                                                                        {
+                                                                                                            alert(player1 + ',' +  player4 + ' Acertou!!! ninguem pontua.')
+                                                                                                            break;
+                                                                                                        }else
+                                                                                                        {
+                                                                                                            if (p1 != numeromagico && p2 == numeromagico && p3 == numeromagico && p4 != numeromagico)
+                                                                                                            {
+                                                                                                                alert(player2 + ',' +  player3 + ' Acertou!!! ninguem pontua.')
+                                                                                                                break;
+                                                                                                            }else
+                                                                                                            {
+                                                                                                                if (p1 != numeromagico && p2 == numeromagico && p3 != numeromagico && p4 == numeromagico)
+                                                                                                                {
+                                                                                                                    alert(player2 + ',' +  player4 + ' Acertou!!! ninguem pontua.')
+                                                                                                                    break;
+                                                                                                                }else
+                                                                                                                {
+                                                                                                                    if (p1 != numeromagico && p2 != numeromagico && p3 == numeromagico && p4 == numeromagico)
+                                                                                                                    {
+                                                                                                                        alert(player3 + ',' + player4 + ' Acertou!!! ninguem pontua.')
+                                                                                                                        break;
+                                                                                                                    }else
+                                                                                                                    {
+                                                                                                                        if (p1 == numeromagico && p2 == numeromagico && p3 == numeromagico && p4 != numeromagico)
+                                                                                                                        {
+                                                                                                                            alert(player1 + ',' + player2 + ',' + player3 + ' Acertou!!! ninguem pontua.')
+                                                                                                                            break;
+                                                                                                                        }else
+                                                                                                                        {
+                                                                                                                            if (p1 != numeromagico && p2 == numeromagico && p3 == numeromagico && p4 == numeromagico)
+                                                                                                                            {
+                                                                                                                                alert(player2 + ',' + player3 + ',' + player4 + ' Acertou!!! ninguem pontua.')
+                                                                                                                                break;
+                                                                                                                            }else
+                                                                                                                            {
+                                                                                                                                if (p1 == numeromagico && p2 != numeromagico && p3 == numeromagico && p4 == numeromagico)
+                                                                                                                                {
+                                                                                                                                    alert(player1 + ',' + player3 + ',' + player4 + ' Acertou!!! ninguem pontua.')
+                                                                                                                                    break;
+                                                                                                                                }else
+                                                                                                                                {
+                                                                                                                                    if (p1 == numeromagico && p2 == numeromagico && p3 != numeromagico && p4 == numeromagico)
+                                                                                                                                    {
+                                                                                                                                        alert(player1 + ',' + player2 + ',' + player4 + ' Acertou!!! ninguem pontua.')
+                                                                                                                                        break;
+                                                                                                                                    }else
+                                                                                                                                    {
+                                                                                                                                        if (p1 == numeromagico && p2 == numeromagico && p3 == numeromagico && p4 == numeromagico)
+                                                                                                                                        {
+                                                                                                                                            alert('Todos acertaram, ninguem pontua')
+                                                                                                                                            break;
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if(cont == 5)
+                {
+                    alert('Revanche, Vamos tentar de Novo!')
+                    break;
+                }
+            }
+        }
+    }
+    
+function PvEMorteSubita()
+    {
+        player1 = prompt('Digite seu nome: ')
+        
+        var cont = 0, h = 0
+        
+        for (i = 0; cont <= 5; i + a)
+        {
+            cont ++
+            console.log('h ' + h)
+            
+            if (cont == 1)
+            {
+                alert('OK ' + cont +'º Rodada, números de 1 a 10')
+                var numeromagico = Math.floor(Math.random() * 10 + 1 );
+            }else
+            {
+                if (cont == 2)
+                {
+                    alert('OK ' + cont +'º Rodada, números de 1 a 20')
+                    var numeromagico = Math.floor(Math.random() * 20 + 1 );
+                }else
+                {
+                    if (cont == 3)
+                    {
+                        alert('OK ' + cont +'º Rodada, números de 1 a 30')
+                        var numeromagico = Math.floor(Math.random() * 30 + 1 );
+                    }else
+                    {
+                        if(cont == 4)
+                        {
+                            alert('OK ' + cont +'º Rodada, números de 1 a 40')
+                            var numeromagico = Math.floor(Math.random() * 40 + 1 );
+                        }else
+                        {
+                            if (cont == 5)
+                            {
+                                alert('OK ' + cont +'º Rodada, números de 1 a 50')
+                                var numeromagico = Math.floor(Math.random() * (cont * 10) + 1 );
+                            }
+                        }
+                    }
+                }
+            }
+            console.log('numero magico ' + numeromagico)
+            console.log('cont ' + cont)
+            for(a = 1 ;a <= 5 ; a++)
+            {
+                p1 = Number(prompt(player1 + ' ' + a + 'º rodada, qual número: '))
+                
+                
+                if (p1 > numeromagico)
+                {
+                    alert(player1 + ' número mágico é menor.')
+                }else
+                {
+                    if(p1 < numeromagico)
+                    {
+                        alert(player1 + ' número mágico é maior.')
+                    }else
+                    {
+                        if (p1 == numeromagico)
+                        {
+                            alert('Parabéns você acertou.\nO número mágico era: ' + numeromagico + '\nTentativas gastas: ' + a)
+                            document.getElementById("saida").innerHTML += ('Você acertou parabéns<BR>Número mágico era: ' + numeromagico + '<BR>Você gastou no total ' + a + ' tentativas.<BR>')
+                                break;
+                        }
+                    }
+                }
+                console.log('a ' + a)
+            }
+            h += a
+            if (a == 6)
+            {
+                document.getElementById('saida').innerHTML +=('Você perdeu seu PATO<BR>O número mágico era: ' + numeromagico + '<BR>Você gastou ' + a +' tentativas seu tanso.<BR>')
+                    break;
+            }
+            if (cont == 5)
+            {
+                document.getElementById("saida").innerHTML += ('Você ganhou parabéns<BR>Você acertou todos os números mágicos<BR>Você gastou no total ' + h + ' tentativas.<BR>')
+                    break;
+            }
+        }
+    }
+                
+document.getElementById('inpEntrada').addEventListener('keypress', function (e){
+    if (e.key == 'Enter') {
+        Modalidade()
+    }
+})
+
+</script>
+    <footer>
+        <p>&copy;Thiago de Melo</p>
+    </footer>
+</body>
+</html>
